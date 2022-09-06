@@ -17,7 +17,7 @@ const FilterStrip = ({
   loading: boolean;
 }) => {
   return (
-    <div className="flex items-center justify-between text-14 font-600 pb-10 sticky pt-10 top-0 bg-thinkify-background">
+    <div className="flex items-center justify-between text-14 font-600 pb-10 sticky pt-10 top-0 bg-thinkify-background md:px-0 px-16">
       <div className="flex items-center space-x-8 ">
         <div className={`pt-1 pb-2`}>Filter By:</div>
         <div

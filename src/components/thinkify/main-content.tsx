@@ -100,12 +100,16 @@ const MainContent = ({
   }, [currentFilter, emailData]);
 
   return (
-    <div className="grid grid-cols-12 gap-x-20 text-thinkify-text font-400">
+    <div className="grid grid-cols-12 gap-x-20 text-thinkify-text font-400 md:px-0 px-16">
       <div
         className={`${
           loading
             ? "col-span-full"
-            : `${selectedMailId ? "col-span-5" : "col-span-full"}`
+            : `${
+                selectedMailId
+                  ? "md:col-span-5 md:pb-0 pb-20 col-span-full "
+                  : "col-span-full"
+              }`
         }`}
       >
         <div className="flex flex-col space-y-16">
@@ -136,7 +140,7 @@ const MainContent = ({
         </div>
       </div>
       {!!selectedMailId && !loading && (
-        <div className="col-span-7">
+        <div className="md:col-span-7 md:pb-0 col-span-full pb-20">
           <FullEmailBody
             mailId={selectedMailId}
             setAllEmailData={setEmailData}
