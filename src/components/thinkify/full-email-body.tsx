@@ -13,13 +13,8 @@ const FullEmailBody = ({
   const [mail] = allEmailData.filter((item: any) => {
     return item.id === mailId;
   });
-  //   console.log(mail);
+
   const logo = mail.from?.name[0]?.toUpperCase();
-  //   console.log(logo);
-  // const name = mail.from?.name;
-  //   const fullEmail = "<" + mail.from.email + ">";
-  //   const from = name + " " + fullEmail;
-  //   const shortDesc = mail.short_description;
   const subject = mail.subject;
 
   const [isFavorite, setIsFavorite] = useState(false);
@@ -47,41 +42,10 @@ const FullEmailBody = ({
           setLoading(false);
         });
     }, 2000);
-    // fetch("https://flipkart-email-mock.now.sh/")
-    //   .then((res) => {
-    //     console.log(res);
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
-    //     setEmailData(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setLoading(false);
-    //   });
+
     setIsFavorite(mail.isFavorite);
   }, [mailId]);
 
-  //   let convertStringToHTML = function (str: string) {
-  //     let parser = new DOMParser();
-  //     let doc = parser.parseFromString(str, "text/html");
-  //     console.log(doc);
-
-  //     // return doc.querySelector("div");
-  //     return doc.body;
-  //   };
-  //   useEffect(() => {
-  //     if (emailBody !== "") {
-  //       const bodyContent: any = convertStringToHTML(emailBody);
-  //       const content = bodyContent.querySelector("div");
-  //       content.className = "flex flex-col space-y-20";
-  //       document.querySelector(".email-body")?.innerHTML(content);
-  //     }
-  //   }, [emailBody]);
-
-  //   console.log(convertStringToHTML(emailBody));
   const extractedTextArr = (text: string) => {
     let temp = [];
     text = text.replace("<div>", "");
@@ -139,8 +103,8 @@ const FullEmailBody = ({
           <div className="w-[100%] h-400 comment br animate"></div>
         ) : (
           <div className="flex flex-col space-y-16">
-            {extractedTextArr(emailBody).map((x: string) => {
-              return <p key={x}>{x}</p>;
+            {extractedTextArr(emailBody).map((content: string) => {
+              return <p key={content}>{content}</p>;
             })}
           </div>
         )}

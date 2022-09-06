@@ -59,23 +59,25 @@ const ShortEmail = ({
         {logo}
       </div>
       <div className="text-12 flex flex-col space-y-4">
-        <div className="flex items-center space-x-4">
+        <p className="flex items-center space-x-4">
           <span>From:</span>
           <span className="font-700">{from}</span>
-        </div>
+        </p>
 
-        <div className="flex items-center space-x-4">
+        <p className="flex items-center space-x-4">
           <span>Subject:</span>
           <span className="font-700">{subject}</span>
-        </div>
-        <div className="line-clamp-1">{shortDesc}</div>
-        <div className="flex items-center space-x-4 text-11">
-          <div>{mailDate}</div>
-          <div>{mailTime}</div>
+        </p>
+        <p className="line-clamp-1">{shortDesc}</p>
+        <p className="flex items-center space-x-4 text-11">
+          <span>{mailDate}</span>
+          <span>{mailTime}</span>
           {isFavorite && (
-            <div className="pl-12 font-700 text-thinkify-accent">Favorite</div>
+            <span className="pl-12 font-700 text-thinkify-accent">
+              Favorite
+            </span>
           )}
-        </div>
+        </p>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import Router from "next/router";
 import React, { useEffect, useState } from "react";
 import FullEmailBody from "./full-email-body";
 import ShortEmail from "./short-email";
@@ -18,52 +19,52 @@ const MainContent = ({
   );
   const [emailData, setEmailData] = useState<any>();
   const [selectedMailId, setSelectedMailId] = useState<any>(false);
-  useEffect(() => {
+
+  const getPageData = () => {
+    const { router } = Router;
+    const { query } = router;
     setLoading(true);
-    setTimeout(() => {
-      const fetchUrl =
-        pageNo > 1
-          ? `https://flipkart-email-mock.now.sh/?page=${pageNo}`
-          : "https://flipkart-email-mock.now.sh/";
-      setSelectedMailId(false);
-      fetch(fetchUrl)
-        .then((res) => {
-          //   console.log(res);
-          return res.json();
-        })
-        .then((data) => {
-          data = data.list.map((listItem: any) => {
-            return {
-              ...listItem,
-              isRead: false,
-              isFavorite: false,
-              isSelected: false,
-            };
-          });
-          console.log(data);
-          setEmailData(data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setEmailData([]);
-          console.log(err);
-          setLoading(false);
+    console.log(router, query, +query.page, +query.page > 2);
+
+    let fetchUrl = "";
+    if (pageNo > 1) {
+      fetchUrl = `https://flipkart-email-mock.now.sh/?page=${pageNo}`;
+    }
+    //  else if (!!query?.page && +query.page > 0) {
+    //     fetchUrl = `https://flipkart-email-mock.now.sh/?page=${query.page}`;
+    //   }
+    else {
+      fetchUrl = "https://flipkart-email-mock.now.sh/";
+    }
+
+    setSelectedMailId(false);
+    fetch(fetchUrl)
+      .then((res) => {
+        //   console.log(res);
+        return res.json();
+      })
+      .then((data) => {
+        data = data.list.map((listItem: any) => {
+          return {
+            ...listItem,
+            isRead: false,
+            isFavorite: false,
+            isSelected: false,
+          };
         });
-    }, 2000);
-    // fetch("https://flipkart-email-mock.now.sh/")
-    //   .then((res) => {
-    //     console.log(res);
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     console.log(data);
-    //     setEmailData(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setLoading(false);
-    //   });
+        console.log(data);
+        setEmailData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setEmailData([]);
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    getPageData();
   }, [pageNo]);
 
   const filterMails = () => {
@@ -100,14 +101,6 @@ const MainContent = ({
 
   return (
     <div className="grid grid-cols-12 gap-x-20 text-thinkify-text font-400">
-      {/* <div
-        onClick={() => {
-          console.log(mailsWithSelectedFilter, emailData);
-        }}
-        className="col-span-full"
-      >
-        click me
-      </div> */}
       <div
         className={`${
           loading
